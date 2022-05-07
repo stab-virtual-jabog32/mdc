@@ -148,6 +148,98 @@ local buttons = {
 	RIO_CAP_NE = { 23, 3533 },
 	RIO_CAP_CLEAR = { 23, 3531 },
 	RIO_CAP_ENTER = { 23, 3534 },
+	
+	-- AH-64
+	R_MPD_U1 = { 43, 3001 },
+	R_MPD_U2 = { 43, 3002 },
+	R_MPD_U3 = { 43, 3003 },
+	R_MPD_U4 = { 43, 3004 },
+	R_MPD_U5 = { 43, 3005 },
+	R_MPD_U6 = { 43, 3006 },
+
+	R_MPD_R1 = { 43, 3007 },
+	R_MPD_R2 = { 43, 3008 },
+	R_MPD_R3 = { 43, 3009 },
+	R_MPD_R4 = { 43, 3010 },
+	R_MPD_R5 = { 43, 3011 },
+	R_MPD_R6 = { 43, 3012 },
+	
+	R_MPD_B6 = { 43, 3013 },
+	R_MPD_B5 = { 43, 3014 },
+	R_MPD_B4 = { 43, 3015 },
+	R_MPD_B3 = { 43, 3016 },
+	R_MPD_B2 = { 43, 3017 },
+	R_MPD_B1 = { 43, 3018 },	
+	
+	R_MPD_L6 = { 43, 3019 },
+	R_MPD_L5 = { 43, 3020 },
+	R_MPD_L4 = { 43, 3021 },
+	R_MPD_L3 = { 43, 3022 },
+	R_MPD_L2 = { 43, 3023 },
+	R_MPD_L1 = { 43, 3024 },
+	
+	R_MPD_STERN = { 43, 3025 },
+	R_MPD_VID = { 43, 3026 },
+	R_MPD_COM = { 43, 3027 },
+	R_MPD_AC = { 43, 3028 },
+	R_MPD_TSD = { 43, 3029 },	
+	R_MPD_WPN = { 43, 3030 },
+	R_MPD_FCR = { 43, 3031 },	
+
+	KU_CLR = { 29, 3001 },
+	KU_BACK = { 29, 3002 },
+	KU_SPACE = { 29, 3003 },
+	KU_LEFT = { 29, 3004 },
+	KU_RIGHT = { 29, 3005 },
+	KU_ENTER = { 29, 3006 },
+	
+	KU_A = { 29, 3007 },
+	KU_B = { 29, 3008 },
+	KU_C = { 29, 3009 },
+	
+	KU_D = { 29, 3010 },
+	KU_E = { 29, 3011 },
+	KU_F = { 29, 3012 },
+	KU_G = { 29, 3013 },
+	KU_H = { 29, 3014 },
+	KU_I = { 29, 3015 },
+	KU_J = { 29, 3016 },
+	KU_K = { 29, 3017 },
+	KU_L = { 29, 3018 },
+	KU_M = { 29, 3019 },
+	
+	KU_N = { 29, 3020 },
+	KU_O = { 29, 3021 },
+	KU_P = { 29, 3022 },
+	KU_Q = { 29, 3023 },
+	KU_R = { 29, 3024 },
+	KU_S = { 29, 3025 },
+	KU_T = { 29, 3026 },
+	KU_U = { 29, 3027 },
+	KU_V = { 29, 3028 },
+	KU_W = { 29, 3029 },
+	
+	KU_X = { 29, 3030 },	
+	KU_Y = { 29, 3031 },
+	KU_Z = { 29, 3032 },	
+	KU_1 = { 29, 3033 },
+	KU_2 = { 29, 3034 },
+	KU_3 = { 29, 3035 },
+	KU_4 = { 29, 3036 },
+	KU_5 = { 29, 3037 },
+	KU_6 = { 29, 3038 },
+	KU_7 = { 29, 3039 },
+	
+	KU_8 = { 29, 3040 },	
+	KU_9 = { 29, 3041 },
+	KU_DOT = { 29, 3042 },
+	KU_0 = { 29, 3043 },
+	KU_PLUS_MINUS = { 29, 3044 },	
+	KU_SLASH = { 29, 3045 },		
+	KU_MINUS = { 29, 3046 },	
+	KU_DURCH = { 29, 3047 },
+	KU_PLUS = { 29, 3048 },
+	KU_MAL = { 29, 3049 },
 }
 
 local cdu_map = {
@@ -240,6 +332,45 @@ local cap_map = {
 	["W"] = buttons.RIO_CAP_SW,
 }
 
+local ku_map = {
+	["0"] = buttons.KU_0,
+	["1"] = buttons.KU_1,
+	["2"] = buttons.KU_2,
+	["3"] = buttons.KU_3,
+	["4"] = buttons.KU_4,
+	["5"] = buttons.KU_5,
+	["6"] = buttons.KU_6,
+	["7"] = buttons.KU_7,
+	["8"] = buttons.KU_8,
+	["9"] = buttons.KU_9,
+	["A"] = buttons.KU_A,
+	["B"] = buttons.KU_B,
+	["C"] = buttons.KU_C,
+	["D"] = buttons.KU_D,
+	["E"] = buttons.KU_E,
+	["F"] = buttons.KU_F,
+	["G"] = buttons.KU_G,
+	["H"] = buttons.KU_H,
+	["I"] = buttons.KU_I,
+	["J"] = buttons.KU_J,
+	["K"] = buttons.KU_K,
+	["L"] = buttons.KU_L,
+	["M"] = buttons.KU_M,
+	["N"] = buttons.KU_N,
+	["O"] = buttons.KU_O,
+	["P"] = buttons.KU_P,
+	["Q"] = buttons.KU_Q,
+	["R"] = buttons.KU_R,
+	["S"] = buttons.KU_S,
+	["T"] = buttons.KU_T,
+	["U"] = buttons.KU_U,
+	["V"] = buttons.KU_V,
+	["W"] = buttons.KU_W,
+	["X"] = buttons.KU_X,
+	["Y"] = buttons.KU_Y,
+	["Z"] = buttons.KU_Z,
+}
+
 local log = function(str)
 	logFile:write(str .. "\n")
 	logFile:flush()
@@ -311,6 +442,10 @@ end
 
 function charToIcpButton(char)
 	return icp_map[char]
+end
+
+function charToKUButton(char)
+	return ku_map[char]
 end
 
 function charToCapButton(char)
@@ -551,6 +686,158 @@ programF14Flightplan = function(time)
 	log("programming DONE!")
 end
 
+function enterKU(str)
+	log("enterKU:"..str)
+	str = str:upper()
+	for i = 1, #str do
+		local button = charToKUButton(str:sub(i, i))
+		if button then
+			pushButton(button)
+		end
+	end
+	pushButton(buttons.ICP_ENTR)
+end
+
+function addMPDWaypoint(latitude, longitude, elevation, tot, name)
+
+	pushButton(buttons.R_MPD_L2)
+	pushButton(buttons.R_MPD_L1)	
+	pushButton(buttons.KU_ENTER)
+	-- NAME
+	enterKU(name:sub(1, 3))
+	pushButton(buttons.KU_ENTER)
+	
+	-- COORDS
+	pushButton(buttons.KU_CLR)	
+	enterKU(latitude:sub(1, 7))
+	enterKU(longitude:sub(1, 8))
+	pushButton(buttons.KU_ENTER)
+	
+	-- ALT
+	enterKU(elevation)
+	pushButton(buttons.KU_ENTER)	
+end
+
+function addMPDRoute(i)
+
+	if (i == 1) then
+		-- POINT
+		pushButton(buttons.R_MPD_L1)	
+		
+		pushButton(buttons.KU_W)
+		pushButton(buttons.KU_0)
+		pushButton(buttons.KU_1)	
+		pushButton(buttons.KU_ENTER)
+		
+		pushButton(buttons.R_MPD_R5)	
+	end
+	
+	if (i == 2) then
+		-- POINT
+		pushButton(buttons.R_MPD_L1)	
+		
+		pushButton(buttons.KU_W)
+		pushButton(buttons.KU_0)
+		pushButton(buttons.KU_2)	
+		pushButton(buttons.KU_ENTER)
+		
+		pushButton(buttons.R_MPD_R4)	
+	end
+	
+	if (i == 3) then
+		-- POINT
+		pushButton(buttons.R_MPD_L1)	
+		
+		pushButton(buttons.KU_W)
+		pushButton(buttons.KU_0)
+		pushButton(buttons.KU_3)	
+		pushButton(buttons.KU_ENTER)
+		
+		pushButton(buttons.R_MPD_R3)	
+	end
+	
+	if (i == 4) then
+		-- POINT
+		pushButton(buttons.R_MPD_L1)	
+		
+		pushButton(buttons.KU_W)
+		pushButton(buttons.KU_0)
+		pushButton(buttons.KU_4)
+		pushButton(buttons.KU_ENTER)
+		
+		pushButton(buttons.R_MPD_R2)	
+	end
+	
+	if (i >= 5) then
+		-- POINT
+		pushButton(buttons.R_MPD_L1)	
+		
+		pushButton(buttons.KU_W)
+		if (i <= 9) then
+			pushButton(buttons.KU_0)
+		end
+		enterKU(tostring(i))
+		pushButton(buttons.KU_ENTER)
+		pushButton(buttons.R_MPD_R1)	
+		pushButton(buttons.R_MPD_R2)	
+	end
+		
+end
+
+
+programAH64Flightplan = function(time)
+	log("Start programming AH-64 ...")
+	
+	-- Enter TSD
+	pushButton(buttons.R_MPD_TSD)
+	-- Enter Point Mode
+	pushButton(buttons.R_MPD_B6)
+	
+	for i, wp in ipairs(mdc.waypoints) do
+		log("Add Waypoint ... " .. wp.cdu)
+		local parts = {}
+		for part in string.gmatch(wp.cdu, "%S+") do
+			table.insert(parts, part)
+		end
+		addMPDWaypoint(parts[1], parts[2], wp.alt, wp.tot, wp.name)
+	end	
+		
+	-- ADD LZ
+	pushButton(buttons.R_MPD_L2)
+	pushButton(buttons.R_MPD_L1)	
+	pushButton(buttons.KU_L)
+	pushButton(buttons.KU_Z)
+	pushButton(buttons.KU_ENTER)
+	pushButton(buttons.KU_L)
+	pushButton(buttons.KU_Z)
+	pushButton(buttons.KU_ENTER)
+	pushButton(buttons.KU_ENTER)
+	pushButton(buttons.KU_ENTER)
+
+	-- Leave Point Mode
+	pushButton(buttons.R_MPD_B6)	
+	
+	-- ENTER ROUTE Mode	
+	pushButton(buttons.R_MPD_B5)	
+	-- ADD
+	pushButton(buttons.R_MPD_L2)
+	
+	log("Add Route Start")
+	for i, wp in ipairs(mdc.waypoints) do
+		log("Add Route ... " .. i)
+		addMPDRoute(i)
+		count = i
+	end
+	-- LZ
+	addMPDRoute(count+1)
+	log("Add Route Ende ")	
+	
+	-- LEAVE ROUTE Mode	
+	pushButton(buttons.R_MPD_B5)		
+		
+	log("programming DONE!")
+end
+
 mdc = nil
 
 function loadMdc()
@@ -560,7 +847,7 @@ end
 LuaExportActivityNextEvent = function(current)
 	local data = LoGetSelfData()
 	if data ~= nil then
-		if theRoutine == nil then
+		if theRoutine == nil then		    
 			unit = data.Name
 			if unit == "A-10C" or unit == "A-10C_2" then
 				if GetDevice(0):get_argument_value(464) == 1 then -- CDU_UNUSED-DOT
@@ -581,6 +868,11 @@ LuaExportActivityNextEvent = function(current)
 				if GetDevice(0):get_argument_value(1814) == 1 then -- RIO_CCM_VGS
 					loadMdc()
 					theRoutine = coroutine.create(programF14Flightplan)
+				end
+			elseif unit == "AH-64D_BLK_II" then
+				if GetDevice(0):get_argument_value(356) == 1 then -- Pilot Defog
+					loadMdc()
+					theRoutine = coroutine.create(programAH64Flightplan)
 				end
 			end
 		elseif coroutine.status(theRoutine) == "suspended" then
