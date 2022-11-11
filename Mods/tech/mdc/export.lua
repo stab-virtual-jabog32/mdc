@@ -240,6 +240,29 @@ local buttons = {
 	KU_DURCH = { 29, 3047 },
 	KU_PLUS = { 29, 3048 },
 	KU_MAL = { 29, 3049 },
+
+	-- AV-8B N/A
+	AV8BNA_ODU1 = { 24, 3250 },
+	AV8BNA_ODU2 = { 24, 3251 },
+	AV8BNA_ODU3 = { 24, 3252 },
+	AV8BNA_ODU4 = { 24, 3248 },
+	AV8BNA_ODU5 = { 24, 3249 },
+
+	AV8BNA_UFC_IP = { 23, 3297 },
+	AV8BNA_UFC_ENTER = { 23, 3314 },
+	
+	AV8BNA_UFC_1 = { 23, 3302 },
+	AV8BNA_UFC_2 = { 23, 3303 },
+	AV8BNA_UFC_3 = { 23, 3304 },
+	AV8BNA_UFC_4 = { 23, 3306 },
+	AV8BNA_UFC_5 = { 23, 3307 },
+	AV8BNA_UFC_6 = { 23, 3308 },
+	AV8BNA_UFC_7 = { 23, 3310 },
+	AV8BNA_UFC_8 = { 23, 3311 },
+	AV8BNA_UFC_9 = { 23, 3312 },
+	AV8BNA_UFC_0 = { 23, 3315 },
+	AV8BNA_UFC_PUNKT = { 23, 3316 },
+	AV8BNA_LEFT_MPCD_LEFT_BUTTON2 = { 26, 3201},
 }
 
 local cdu_map = {
@@ -371,6 +394,23 @@ local ku_map = {
 	["Z"] = buttons.KU_Z,
 }
 
+local AV8BNA_UFC_map = {
+	["0"] = buttons.AV8BNA_UFC_0,
+	["1"] = buttons.AV8BNA_UFC_1,
+	["2"] = buttons.AV8BNA_UFC_2,
+	["3"] = buttons.AV8BNA_UFC_3,
+	["4"] = buttons.AV8BNA_UFC_4,
+	["5"] = buttons.AV8BNA_UFC_5,
+	["6"] = buttons.AV8BNA_UFC_6,
+	["7"] = buttons.AV8BNA_UFC_7,
+	["8"] = buttons.AV8BNA_UFC_8,
+	["9"] = buttons.AV8BNA_UFC_9,
+	["E"] = buttons.AV8BNA_UFC_6,
+	["N"] = buttons.AV8BNA_UFC_2,
+	["S"] = buttons.AV8BNA_UFC_8,
+	["W"] = buttons.AV8BNA_UFC_4,
+}
+
 local log = function(str)
 	logFile:write(str .. "\n")
 	logFile:flush()
@@ -442,6 +482,10 @@ end
 
 function charToIcpButton(char)
 	return icp_map[char]
+end
+
+function charToAV8BNAUFCButton(char)
+	return AV8BNA_UFC_map[char]
 end
 
 function charToKUButton(char)
@@ -838,6 +882,95 @@ programAH64Flightplan = function(time)
 	log("programming DONE!")
 end
 
+function round(n)
+    return n % 1 >= 0.5 and math.ceil(n) or math.floor(n)
+end
+
+function enterAV8BNAUFC(str)
+	log("enterAV8BNAUFC:"..str)
+	str = str:upper()
+	for i = 1, #str do
+		local button = charToAV8BNAUFCButton(str:sub(i, i))
+		if button then
+			pushButton(button)
+			wait(5)
+		end
+	end
+	pushButton(buttons.AV8BNA_UFC_ENTER)
+	wait(5)
+end
+
+function addAV8BNAWaypoint(latitude, longitude)
+
+	--Next Waypoint - 77 is always next free WP
+	pushButton(buttons.AV8BNA_UFC_7)
+	wait(5)
+	pushButton(buttons.AV8BNA_UFC_7)
+	wait(5)
+	pushButton(buttons.AV8BNA_UFC_ENTER)
+	wait(5)
+	-- ODU Option 2 to enter position mode
+	pushButton(buttons.AV8BNA_ODU2)
+	wait(5)
+	
+	-- Split LAT
+	AV8BNA_Lat_NorthSouth = latitude:sub(1,1)
+	AV8BNA_Lat_Hours = latitude:sub(2,3)
+	AV8BNA_Lat_Minutes = latitude:sub(4,5)
+	AV8BNA_Lat_DecimalMinutes = latitude:sub(6,8)
+	-- Convert decimalminutes to seconds
+	AV8BNA_Lat_Seconds = round(AV8BNA_Lat_DecimalMinutes * 0.06)
+	if AV8BNA_Lat_Seconds == 60 then
+		AV8BNA_Lat_Seconds = 59
+	end
+	if AV8BNA_Lat_Seconds < 10 then
+		AV8BNA_Lat_Seconds = "0" .. AV8BNA_Lat_Seconds
+	end
+	AV8BNA_Lat_Converted = "" .. AV8BNA_Lat_NorthSouth .. "" .. AV8BNA_Lat_Hours .. "" .. AV8BNA_Lat_Minutes .. "" .. AV8BNA_Lat_Seconds
+	enterAV8BNAUFC(AV8BNA_Lat_Converted)
+	wait(5)
+
+	AV8BNA_Long_EastWest = longitude:sub(1,1)
+	AV8BNA_Long_Hours = longitude:sub(2,4)
+	AV8BNA_Long_Minutes = longitude:sub(5,6)
+	AV8BNA_Long_DecimalMinutes = longitude:sub(7,9)
+	-- Convert decimalminutes to seconds
+	AV8BNA_Long_Seconds = round(AV8BNA_Long_DecimalMinutes * 0.06)
+	if AV8BNA_Long_Seconds == 60 then
+		AV8BNA_Long_Seconds = 59
+	end
+	if AV8BNA_Long_Seconds < 10 then
+		AV8BNA_Long_Seconds = "0" .. AV8BNA_Long_Seconds
+	end
+	AV8BNA_Long_Converted = "" .. AV8BNA_Long_EastWest .. "" .. AV8BNA_Long_Hours .. "" .. AV8BNA_Long_Minutes .. "" .. AV8BNA_Long_Seconds
+	enterAV8BNAUFC(AV8BNA_Long_Converted)
+	wait(5)
+	-- ODU Option 1 Waypoint
+	pushButton(buttons.AV8BNA_ODU1)
+	wait(5)
+	log("WP finished")
+end
+
+programAV8BNAFlightplan = function(time)
+	log("Start programming AV-8B NA...")
+	
+	--Enter Data Mode
+	pushButton(buttons.AV8BNA_LEFT_MPCD_LEFT_BUTTON2) -- DATA OSB
+	wait(5)
+	
+	for i, wp in ipairs(mdc.waypoints) do
+		log("Add Waypoint ... " .. wp.cdu)
+		local parts = {}
+		for part in string.gmatch(wp.cdu, "%S+") do
+			table.insert(parts, part)
+		end
+		addAV8BNAWaypoint(parts[1], parts[2])
+	end	
+	--Leave Data Mode
+	pushButton(buttons.AV8BNA_LEFT_MPCD_LEFT_BUTTON2) -- DATA OSB
+	log("programming DONE!")
+end
+
 mdc = nil
 
 function loadMdc()
@@ -873,6 +1006,11 @@ LuaExportActivityNextEvent = function(current)
 				if GetDevice(0):get_argument_value(356) == 1 then -- Pilot Defog
 					loadMdc()
 					theRoutine = coroutine.create(programAH64Flightplan)
+				end
+			elseif unit == "AV8BNA" then
+				if GetDevice(0):get_argument_value(297) == 1 then -- UFC I/P Button
+					loadMdc()
+					theRoutine = coroutine.create(programAV8BNAFlightplan)
 				end
 			end
 		elseif coroutine.status(theRoutine) == "suspended" then
