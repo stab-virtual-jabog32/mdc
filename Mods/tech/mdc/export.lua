@@ -532,7 +532,7 @@ function enterElevation(str)
 end
 
 function addCduWaypoint(name, latitude, longitude, elevation, tot)
-	createWaypointWithName(name)
+	createWaypointWithName(name:sub(1,12))
 	enterLatitude(latitude)
 	coroutine.yield()
 	enterLongitude(longitude)
