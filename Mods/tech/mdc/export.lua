@@ -630,7 +630,8 @@ programA10Flightplan = function(time)
 		for part in string.gmatch(wp.cdu, "%S+") do
 			table.insert(parts, part)
 		end
-		addCduWaypoint(wp.name, parts[1], parts[2], wp.alt, wp.tot)
+		sanitizedwaypointname = "X" .. wp.name
+		addCduWaypoint(sanitizedwaypointname, parts[1], parts[2], wp.alt, wp.tot)
 	end
 
 	pushButton(buttons.CDU_FPM)
