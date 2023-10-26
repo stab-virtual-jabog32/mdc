@@ -263,6 +263,46 @@ local buttons = {
 	AV8BNA_UFC_0 = { 23, 3315 },
 	AV8BNA_UFC_PUNKT = { 23, 3316 },
 	AV8BNA_LEFT_MPCD_LEFT_BUTTON2 = { 26, 3201},
+
+	-- F15E
+	UFC_PB_1 = { 56, 3001 },
+	UFC_PB_2 = { 56, 3002 },
+	UFC_PB_3 = { 56, 3003 },
+	UFC_PB_4 = { 56, 3004 },
+	UFC_PB_5 = { 56, 3005 },
+	UFC_PB_6 = { 56, 3006 },
+	UFC_PB_7 = { 56, 3007 },
+	UFC_PB_8 = { 56, 3008 },
+	UFC_PB_9 = { 56, 3009 },
+	UFC_PB_0 = { 56, 3010 },
+	UFC_PRESET_LEFT = { 56, 3011 },	
+	UFC_PRESET_RIGHT = { 56, 3012 },
+	UFC_BRT_CTRL = { 56, 3017 },	
+	UFC_EMIS_LMT = { 56, 3018 },	
+	UFC_GREC_CM_LEFT = { 56, 3019 },
+	UFC_KEY_A1 = { 56, 3020 },	
+	UFC_KEY_N2 = { 56, 3021 },	
+	UFC_KEY_B3 = { 56, 3022 },	
+	UFC_GREC_CM_RIGHT = { 56, 3023 },
+	UFC_MARK = { 56, 3024 },	
+	UFC_KEY_W4 = { 56, 3025 },	
+	UFC_KEY_M5 = { 56, 3026 },	
+	UFC_KEY_E6 = { 56, 3027 },	
+	UFC_I_P = { 56, 3028 },		
+	UFC_DOT = { 56, 3029 },		
+	UFC_KEY__7 = { 56, 3030 },	
+	UFC_KEY_S8 = { 56, 3031 },	
+	UFC_KEY_C9 = { 56, 3032 },	
+	UFC_SHF = { 56, 3033 },		
+	UFC_A_P = { 56, 3034 },		
+	UFC_CLEAR = { 56, 3035 },	
+	UFC_KEY__0 = { 56, 3036 },	
+	UFC_DATA = { 56, 3037 },	
+	UFC_MENU = { 56, 3038 },	
+	UFC_UHF_1_3_SWITCH = { 56, 3053 },
+	UFC_UHF_2_4_SWITCH = { 56, 3054 },
+	UFC_PRESET_SW_LEFT = { 56, 3055 },	
+	UFC_PRESET_SW_RIGHT = { 56, 3056 }
 }
 
 local cdu_map = {
@@ -411,6 +451,24 @@ local AV8BNA_UFC_map = {
 	["W"] = buttons.AV8BNA_UFC_4,
 }
 
+local F15E_UFC_map = {
+	["0"] = buttons.UFC_KEY__0,
+	["1"] = buttons.UFC_KEY_A1,
+	["2"] = buttons.UFC_KEY_N2,
+	["3"] = buttons.UFC_KEY_B3,
+	["4"] = buttons.UFC_KEY_W4,
+	["5"] = buttons.UFC_KEY_M5,
+	["6"] = buttons.UFC_KEY_E6,
+	["7"] = buttons.UFC_KEY__7,
+	["8"] = buttons.UFC_KEY_S8,
+	["9"] = buttons.UFC_KEY_C9,
+	["E"] = buttons.UFC_KEY_E6,
+	["N"] = buttons.UFC_KEY_N2,
+	["S"] = buttons.UFC_KEY_S8,
+	["W"] = buttons.UFC_KEY_W4,
+}
+
+
 local log = function(str)
 	logFile:write(str .. "\n")
 	logFile:flush()
@@ -486,6 +544,10 @@ end
 
 function charToAV8BNAUFCButton(char)
 	return AV8BNA_UFC_map[char]
+end
+
+function charToF15EUFCButton(char)
+	return F15E_UFC_map[char]
 end
 
 function charToKUButton(char)
@@ -901,6 +963,31 @@ function enterAV8BNAUFC(str)
 	wait(5)
 end
 
+function enterF15EUFC(str)
+	log("enterF15EUFC:"..str)
+	str = str:upper()
+	for i = 1, #str do
+		local button = charToF15EUFCButton(str:sub(i, i))
+		if button then
+			if (str:sub(i, i) == 'N') then
+				pushButton(buttons.UFC_SHF)
+			end;
+			if (str:sub(i, i) == 'W') then
+				pushButton(buttons.UFC_SHF)
+			end;
+			if (str:sub(i, i) == 'E') then
+				pushButton(buttons.UFC_SHF)
+			end;
+			if (str:sub(i, i) == 'S') then
+				pushButton(buttons.UFC_SHF)
+			end;
+
+			pushButton(button)
+		end
+	end
+	wait(3)
+end
+
 function addAV8BNAWaypoint(latitude, longitude)
 
 	--Next Waypoint - 77 is always next free WP
@@ -972,6 +1059,82 @@ programAV8BNAFlightplan = function(time)
 	log("programming DONE!")
 end
 
+function addF15EWaypoint(latitude, longitude, alt, tot, name, wp_number)
+
+	-- Create Waypoint wp_number
+	-- Todo: Target Waypoint
+	enterF15EUFC(wp_number);
+	log("addF15EWaypoint - " .. name)
+	log("addF15EWaypoint - " .. string.sub(name,1,1))
+	if string.sub(name,1,1) == '#' then
+		pushButton(buttons.UFC_DOT) -- UFC_DOT für Target WP on # prefix name
+	end
+	pushButton(buttons.UFC_PB_1) -- UFC 1 set WP
+
+	-- Enter Lat
+	log("addF15EWaypoint - " .. latitude)
+	enterF15EUFC(latitude);
+	pushButton(buttons.UFC_PB_2) -- UFC 2 set Lat
+
+	-- Enter Long
+	log("addF15EWaypoint - " .. longitude)
+	enterF15EUFC(longitude);
+	pushButton(buttons.UFC_PB_3) -- UFC 3 set Long
+
+	-- Enter Alt
+	log("addF15EWaypoint - " .. alt)
+	enterF15EUFC(string.sub(alt,3,7));
+	pushButton(buttons.UFC_PB_7) -- UFC 7 set Alt
+
+	log("WP finished")
+end
+
+programF15EFlightplan = function(time)
+	log("Start programming F15E...")
+	
+	--Enter Data Mode
+	pushButton(buttons.UFC_PB_0) -- UFC 10 für WP Menue
+	wait(1)
+	
+	for i, wp in ipairs(mdc.waypoints) do
+		if i > 1 then --skip WP1
+			log("Add Waypoint ... " .. wp.cdu)
+			local parts = {}
+			for part in string.gmatch(wp.cdu, "%S+") do
+				table.insert(parts, part)
+			end
+			addF15EWaypoint(parts[1], parts[2], parts[3], parts[4], parts[5], tostring(i))
+		end
+	end	
+
+	pushButton(buttons.UFC_MENU) -- Back Menue
+	--Set WP2 aktiv
+	pushButton(buttons.UFC_KEY_N2) -- Back Menue
+	pushButton(buttons.UFC_PB_0) -- UFC 10 für WP Menue
+
+	--Enter Data Mode
+	pushButton(buttons.UFC_PB_0) -- UFC 10 für WP Menue
+
+	--Programm WP1
+	for i, wp in ipairs(mdc.waypoints) do
+		if i == 1 then --only WP1 
+			log("Add Waypoint ... " .. wp.cdu)
+			local parts = {}
+			for part in string.gmatch(wp.cdu, "%S+") do
+				table.insert(parts, part)
+			end
+			addF15EWaypoint(parts[1], parts[2], parts[3], parts[4], parts[5], tostring(i))
+		end
+	end	
+
+	--Set WP1 aktiv
+	pushButton(buttons.UFC_MENU) -- Back Menue
+	--Set WP2 aktiv
+	pushButton(buttons.UFC_KEY_A1) -- Back Menue
+	pushButton(buttons.UFC_PB_0) -- UFC 10 für WP Menue
+	log("programming DONE!")
+end
+
 mdc = nil
 
 function loadMdc()
@@ -1012,6 +1175,11 @@ LuaExportActivityNextEvent = function(current)
 				if GetDevice(0):get_argument_value(297) == 1 then -- UFC I/P Button
 					loadMdc()
 					theRoutine = coroutine.create(programAV8BNAFlightplan)
+				end
+			elseif unit == "F-15ESE" then
+				if GetDevice(0):get_argument_value(287) == 1 then -- Emission Limit
+					loadMdc()
+					theRoutine = coroutine.create(programF15EFlightplan)
 				end
 			end
 		elseif coroutine.status(theRoutine) == "suspended" then
