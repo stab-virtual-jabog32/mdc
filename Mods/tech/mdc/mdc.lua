@@ -73,6 +73,24 @@ function multicell(top_row, left_column, bottom_row, right_column, txt, font, ba
 	text(v_center, h_center, txt, font)
 end
 
+function multicellmultiline(top_row, left_column, bottom_row, right_column, txt, font, background)
+	local top = (top_row/ROWS - 0.5) * -2 * HEIGHT * AREA
+	local bottom = ((bottom_row+1)/ROWS - 0.5) * -2 * HEIGHT * AREA
+	local left = (left_column/columns - 0.5) * 2 * WIDTH * AREA
+	local right = ((right_column+1)/columns - 0.5) * 2 * WIDTH * AREA
+
+	if background ~= nil then
+		bg(top, left, bottom, right, background)
+	end
+
+	frame(top, left, bottom, right)
+
+	local v_center = (((bottom_row+top_row)/2+0.5)/ROWS - 0.5) * -2 * HEIGHT * AREA
+	local h_center = (((left_column+right_column)/2+0.5)/columns - 0.5) * 2 * WIDTH * AREA
+
+	text(v_center, h_center, txt:gsub("\\([nt])", {n="\n", t="\t"}), font)
+end
+
 function cell(row, column, text, font, background)
 	multicell(row, column, row, column, text, font, background)
 end
