@@ -3,7 +3,7 @@ declare_plugin("vJaBoG32 MDC Mod",
 
 installed 	 = true,
 dirName	  	 = current_mod_path,
-version		 = "1.1.19",
+version		 = "1.1.20",
 state		 = "installed",
 
 
