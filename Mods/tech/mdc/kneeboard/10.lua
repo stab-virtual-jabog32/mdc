@@ -1,4 +1,4 @@
--- 10 - departure procedure
+-- 10 - departure ad
 local lfs = require('lfs')
 local dataPath = lfs.writedir() .. 'Data\\mdc\\'
 local modPath = lfs.writedir() .. 'Mods\\tech\\mdc\\'
@@ -6,4 +6,4 @@ local modPath = lfs.writedir() .. 'Mods\\tech\\mdc\\'
 dofile(modPath..'mdc.lua')
 dofile(dataPath..'mdc.lua')
 
-plate(dataPath .. '/plates/' .. mdc.plates.departure.procedure)
+plate(dataPath .. '/plates/' .. mdc.plates.departure.ad)
